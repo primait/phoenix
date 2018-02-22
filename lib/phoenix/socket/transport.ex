@@ -446,8 +446,8 @@ defmodule Phoenix.Socket.Transport do
     end
   end
 
-  defp origin_allowed?(_check_origin, %URI{host: nil}, _endpoint),
-    do: true
+  defp origin_allowed?(check_origin, %URI{host: nil}, _endpoint),
+    do: not check_origin
   defp origin_allowed?(true, uri, endpoint),
     do: compare?(uri.host, host_to_binary(endpoint.config(:url)[:host]))
   defp origin_allowed?(check_origin, uri, _endpoint) when is_list(check_origin),
